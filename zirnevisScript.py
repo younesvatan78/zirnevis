@@ -21,16 +21,17 @@ res = str(input('Enter Res (Example 720):'))
 
 
 
-baseUrl = "https://zirdl.info"
+baseUrl = "https://mrsub.net"
 nameMovie = movie.replace(" ","+")
 
-searchurl = baseUrl+"/subtitles/searchbytitle?query="+str(nameMovie)+"&l="
+searchurl = baseUrl+"/subtitles/searchbytitle?query="+str(nameMovie)
 searchPage = requests.get(searchurl)
 soup = BeautifulSoup(searchPage.content,'html5lib')
 div = soup.find('div',{"class":"title"})
 namesArray = nameMovie.split("+")
 
 searchNameFound = div.text.strip()
+
 for check in namesArray:
     if check not in searchNameFound:
         print("not exist this movie")
@@ -49,7 +50,7 @@ for item in soup.find_all('li',{"class":"item"}):
             print(urlDownloadPage)
             downloadPage = requests.get(urlDownloadPage)
             soup = BeautifulSoup(downloadPage.content,'html5lib')
-            aURLDOWNLOAD = baseUrl + soup.find('a',{"id":"downloadButton"})['href']
+            aURLDOWNLOAD = soup.find('a',{"id":"downloadButton"})['href']
             system("wget -O "+str(counter)+".zip '"+aURLDOWNLOAD+"'")
             system("unzip "+str(counter)+".zip && rm "+str(counter)+".zip")
             counter += 1

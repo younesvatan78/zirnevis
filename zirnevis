@@ -179,10 +179,10 @@ class Ui_MainWindow(object):
         try:
             self.txtlogs.append("> Start " + str(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
             app.processEvents()
-            baseUrl = "https://mrsub.net"
+            baseUrl = "http://subf2m.ir"
             nameMovie = movie.replace(" ","+")
 
-            searchurl = baseUrl+"/subtitles/searchbytitle?query="+str(nameMovie)
+            searchurl = baseUrl+"/subtitles/زیرنویس-فارسی-searchbytitle?query="+str(nameMovie)
             self.txtlogs.append("> Searching for movie " + str(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
             app.processEvents()
             searchPage = requests.get(searchurl)
@@ -197,7 +197,7 @@ class Ui_MainWindow(object):
                     app.processEvents()
         
 
-            urlMovie = baseUrl + div.find('a')['href']+"/farsi_persian/"
+            urlMovie = baseUrl + div.find('a')['href']
             self.txtlogs.append("> Selected movie " + str(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
             app.processEvents()
             self.txtlogs.append("> Searching subtitles " + str(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
@@ -217,7 +217,7 @@ class Ui_MainWindow(object):
                         aURLDOWNLOAD = soup.find('a',{"id":"downloadButton"})['href']
                         self.txtlogs.append("> Downloading... " + str(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
                         app.processEvents()
-                        system("wget -O "+str(counter)+".zip '"+aURLDOWNLOAD+"'")
+                        system("wget -O "+str(counter)+".zip '"+baseUrl+""+aURLDOWNLOAD+"'")
                         self.txtlogs.append("> Extracting... " + str(strftime("%Y-%m-%d %H:%M:%S", gmtime())))
                         app.processEvents()
                         system("unzip "+str(counter)+".zip  && rm "+str(counter)+".zip")
